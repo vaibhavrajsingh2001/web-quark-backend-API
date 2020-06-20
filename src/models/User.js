@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
     name: {
@@ -14,10 +14,14 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    score: {
+        type: Number,
+        default: 0,
+    },
     date: {
         type: Date,
         default: Date.now,
     },
 });
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = mongoose.model('user', UserSchema);

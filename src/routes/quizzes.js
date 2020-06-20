@@ -2,6 +2,7 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 const quizRouter = express.Router();
 
+const auth = require('../middleware/auth');
 const Quiz = require('../models/Quiz');
 
 // get all quizzes
@@ -33,6 +34,7 @@ quizRouter.get('/:id', async (req, res) => {
 quizRouter.post(
     '/',
     [
+        auth,
         check('name', 'Name is required.').not().isEmpty(),
         check('questions', 'You need to enter some questions.').not().isEmpty(),
     ],
