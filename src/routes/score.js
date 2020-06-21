@@ -13,7 +13,10 @@ scoreRouter.get('/', async (req, res) => {
             return res.status(400).send('There are no users registered');
         }
         res.json(users);
-    } catch (err) {}
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error!');
+    }
 });
 
 // add points to a user's total score

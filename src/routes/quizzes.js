@@ -49,6 +49,7 @@ quizRouter.post(
             const newQuiz = new Quiz({
                 name,
                 questions,
+                user: req.user.id,
             });
 
             const quiz = await newQuiz.save();

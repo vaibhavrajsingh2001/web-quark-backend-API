@@ -7,6 +7,7 @@ const User = require('../models/User');
 
 const loginRouter = express.Router();
 
+// login a user
 loginRouter.post(
     '/',
     [
