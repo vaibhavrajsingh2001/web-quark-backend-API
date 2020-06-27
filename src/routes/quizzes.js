@@ -36,7 +36,7 @@ quizRouter.post(
     [
         auth,
         check('name', 'Name is required.').not().isEmpty(),
-        check('questions', 'You need to enter some questions.').not().isEmpty(),
+        check('quizData', 'You need to enter some questions.').not().isEmpty(),
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -44,11 +44,11 @@ quizRouter.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { name, questions } = req.body;
+        const { name, quizData } = req.body;
         try {
             const newQuiz = new Quiz({
                 name,
-                questions,
+                quizData,
                 user: req.user.id,
             });
 

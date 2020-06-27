@@ -22,18 +22,22 @@ scoreRouter.get('/', async (req, res) => {
 // add points to a user's total score
 scoreRouter.post('/', auth, async (req, res) => {
     const _id = req.user.id;
-    // find the user
-    let user = await User.findById(_id, 'name score');
-    if (!user) {
-        return res.status(404).json({ msg: 'User not found!' });
-    }
-
-    // add points to user's score
     const { points } = req.body;
+
     try {
+        // find the user
+        let user = await User.findById(_id, 'name score');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found!' });
+        }
+
+        // add points to user's score
         user.score += points;
+
+        // save the user with new points
         await user.save();
         res.json({ user });
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal server error!');

@@ -5,8 +5,21 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 const User = require('../models/User');
+const auth = require('../middleware/auth');
 
 const usersRouter = express.Router();
+
+// get details of an user
+usersRouter.get('/', auth, async (req, res) => {
+    const _id = req.user.id;
+    try {
+        const user = await User.findById(_id).select('-password');
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
 
 // register a new user
 usersRouter.post(
